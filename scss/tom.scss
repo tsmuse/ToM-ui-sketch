@@ -1,0 +1,687 @@
+@import "./normalize.css";
+
+$rs-blue: hsl(208, 54%, 64%);
+$darkblue: hsl(207, 17%, 10%);
+// $lightgrey: hsl(210, 13%, 91%);
+// $light: hsl(210, 71%, 97%);
+$brightblue: hsl(208, 100%, 39%);
+// $green: hsl(131, 34%, 46%);
+
+$rs-background: hsl(220, 20%, 97%);
+$rs-darkbar: hsl(220, 7%, 91%);
+$rs-menu: hsl(192, 29%, 97%);
+$rs-border: hsl(200, 8%, 85%);
+$r-green: hsl(151, 22%, 48%);
+$r-blue: hsl(240, 100%, 58%);
+
+@mixin hexgrid( $cols, $rows ){
+  // for hex grid with hexes flat side up
+  // grid-template-columns: repeat( (2 * $cols)  + 1, 2fr);
+  // grid-template-rows: repeat( $rows * 2, 3fr);
+  grid-template-columns: repeat( (3 * $cols) + 3, 2fr);
+  grid-template-rows: repeat( 5 * $rows + ($rows - 2), 3fr);
+}
+
+@mixin hexgrid-placement( $col, $row ){
+    // for hex grid with hexes flat side up
+    // grid-column-start: (2 * $col) - 1; 
+    // grid-column-end: (2 * $col) + 2;
+    // @if $col % 2 == 0 {
+    //   grid-row-start: 2 * $row;  
+    //   grid-row-end: (2 * $row) + 2;
+    // }
+    // @else {
+    //   grid-row-start: (2 * $row) - 1;  
+    //   grid-row-end: (2 * $row) + 1;
+    // }
+    grid-column-start: (2 * $col) + ($col - 2); 
+    grid-column-end: span 6;
+
+    @if $col % 2 == 0 {
+      grid-row-start: 3 + ($row + (5 * ($row - 1)));  
+    }
+    @else {
+      grid-row-start: $row + (5 * ($row - 1));  
+    }
+    grid-row-end: span 4;
+}
+
+@keyframes type-in {
+  from {
+    width: 0
+  }
+  to {
+    width: 17ch;
+  }
+}
+
+@keyframes cursor-blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: hsl(0, 0%, 0%);
+  }
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Source Code Pro', monospace;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 75px 1fr;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  font-size: 16px;
+  background-color: $rs-background;
+}
+
+em {
+  font-style: normal;
+  color: $brightblue;
+  font-weight: 700;
+}
+
+a {
+  color: $brightblue;
+}
+
+.top-bar {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: hsl(0, 0%, 100%);
+  color: $darkblue;
+  border-bottom: 1px solid $rs-border;
+
+  .logo-container {
+    flex: 0 0 auto;
+    display: flex;
+    font-size: 2rem;
+    color: $brightblue;
+    .prompt-container {
+      flex: 0 0 auto;
+      margin-right: 0.5ch;
+    }
+    .animation-container {
+      flex: 0 0 auto;
+      // width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      padding:0;
+      
+
+      &.animate {
+        border-right: 3px solid hsl(0, 0%, 0%);
+        animation: 
+        // type-in 2s steps(20, end) 1s forwards,
+        cursor-blink 1s step-end infinite;
+      }
+    }
+  } 
+  .spacer {
+      flex: 1;
+    }
+  .logins-container {
+    flex: 0 0 250px;
+  }
+}
+
+.side-bar {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  padding: 1rem 2rem 1rem 0.5rem;
+  
+
+  .nav-container {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    display: none;
+    @media screen and (min-width: 1024px) {
+      display: flex;
+      flex-flow: column nowrap;
+      padding-bottom: 5rem;
+      margin-bottom: 1rem;
+
+      .login-container {
+        flex: 1 0 100%;
+        display: flex; // doing this to get around spacing added to buttons when they're inline-block
+        background-color: $rs-menu; 
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+
+        .login-button {
+          flex: 0 0 auto;
+          font-family: 'Helvetica', 'Arial', sans-serif;
+          background: transparent;
+          border: none;
+          font-size: 0.9rem;
+          cursor: pointer;
+          
+          .fa-github path,
+          .fa-google path {
+            fill: $rs-blue;
+          }
+          &:first-of-type {
+            border-right: 1px solid $rs-border;
+          }
+        }
+      }
+      .side-bar-link {
+        padding: 0 1rem;
+        margin-bottom: 0.5rem;
+        text-decoration: none;
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        &.active {
+         color: $r-green;
+        }
+      }
+    }
+    
+  }
+
+  .help-container {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    line-height: 1.4rem;
+    display: none;
+    padding: 1rem 1rem 3rem;
+
+    &.show {
+      display: block;
+    }
+    .help-title {
+      font-size: 1.3rem;
+      margin: 0 0 0.75rem;
+    }
+    .help-content {
+      margin: 0;
+    }
+
+  }
+  
+}
+
+.main-section {
+  grid-row: 2 / 3;
+  grid-column: 1 / 4;
+  @media screen and (min-width: 1024px) {
+    grid-column: 1 / 2;
+    padding: 1rem 0.5rem 1rem 2rem;
+  }
+  
+
+  .content-container {
+    color: $darkblue;
+    padding: 1rem;
+    display: none;
+    @media screen and (min-width: 1024px) {
+      padding: 1.5rem 2rem;
+      height: 100%;
+    }
+
+    &.show {
+      display: block;
+    }
+    &.no-pad {
+      padding: 0;
+    }
+  }
+  &-intro {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+
+    @media screen and (min-width: 1024px) {
+      max-width: 50%;
+      font-size: 1.2rem;
+      line-height: 1.6rem;
+      margin-bottom: 1.5rem; 
+    }
+  }
+}
+
+.nav-container,
+.help-container,
+.content-container {
+  border: 1px solid $rs-border;
+  border-top: 12px solid $rs-darkbar;
+  background-color: hsl(0, 0%, 100%);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
+}
+
+.puzzle-selector {
+  display: grid;
+  @include hexgrid( 4, 9 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid( 6, 6 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid( 13, 3 );
+  }
+
+  &-link {
+    display: block;
+    padding: 2%;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.back-control {
+  background-color: $rs-menu; 
+  padding: 0.5rem;
+  a {
+    display: inline-block;
+    padding: 0 0.5rem;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: hsl(0, 0%, 0%);
+
+    .fa-arrow-left path{
+      fill: $rs-blue;
+    }
+  }
+}
+.puzzle {
+  padding: 2rem 2rem;
+  line-height: 2.5ch;
+  .puzzle-header {
+    
+    h1 {
+      font-size: 2.5rem;
+      // line-height: 4ch;
+      margin-top: 0;
+
+    }
+  }
+  main > p {
+    margin: 0 0 2ch;
+    max-width: 84ch;
+    &:last-of-type {
+      margin-bottom: 3ch;
+    }
+  }
+  .hint {
+    margin-bottom: 1ch;
+  }
+
+  .rterm-button {
+    margin-bottom: 1ch;
+    padding: 0;
+    border: none;
+    text-decoration: underline;
+    color: $r-green;
+    background: transparent;
+    cursor: pointer;
+  }
+  .hint-header {
+    margin-bottom: 0;
+  }
+  .download-btn {
+    margin-bottom: 2ch;
+  }
+
+  .hint-content {
+    display: none;
+    &.show {
+      display: block;
+      margin-top: 1ch;
+    }
+
+    p {
+      margin: 0 0 1ch;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 1ch;
+      li {
+        margin-bottom: 1ch;
+      }
+    }
+  }
+}
+
+.solution-block {
+  label {
+    display: block;
+    margin-bottom: 1ch;
+  }
+
+  .solution-prompt {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+
+    .prompt {
+      flex: 0 0 auto;
+      color: $brightblue;
+      margin-right: 0.5ch;
+    }
+    .solution-input {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+  }
+  
+}
+
+
+// The grid never changes, always holds 31 hexes, one for each day in March so 
+// having each item in the grid positioned explicitly gives us a better backwards
+// compatible layout solution than needlessly auto positoning them and dealing with
+// IE 11 backwards compat
+
+// Hexes are arranged 1-31 in top to bottom, left to right
+
+// first col on all viewports
+#day01 {
+@include hexgrid-placement( 1, 1 );
+}
+
+#day02 {
+  @include hexgrid-placement( 1, 2 );
+}
+
+#day03 {
+  @include hexgrid-placement( 1, 3 );
+}
+
+#day04 {
+  @include hexgrid-placement( 2, 1 );
+}
+
+// second col on large viewports
+#day05 {
+  @include hexgrid-placement( 1, 5 );
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 2, 2 );
+  }
+}
+
+#day06 {
+  @include hexgrid-placement( 1, 6 );
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 3, 1 );
+  }
+}
+
+// second col on medium viewports
+#day07 {
+  @include hexgrid-placement( 1, 7 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 2, 1 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 3, 2 );
+  }
+}
+
+// third col on large viewports 
+#day08 {
+  @include hexgrid-placement( 1, 8 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 2, 2 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 3, 3 );
+  }
+}
+
+#day09 {
+  @include hexgrid-placement( 1, 9 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 2, 3 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 4, 1 );
+  }
+}
+
+// second col on small viewports
+#day10 {
+  @include hexgrid-placement( 2, 1 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 2, 4 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 4, 2 );
+  }
+}
+
+#day11 {
+  @include hexgrid-placement( 2, 2 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 2, 5 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 5, 1 );
+  }
+}
+
+// third col on medium viewports
+// forth col on large viewports 
+#day12 {
+  @include hexgrid-placement( 2, 3 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 1 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 5, 2 );
+  }
+}
+
+#day13 {
+  @include hexgrid-placement( 2, 4 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 2 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 5, 3 );
+  }
+}
+
+#day14 {
+  @include hexgrid-placement( 2, 5 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 3 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 6, 1 );
+  }
+}
+
+// fifth col on large viewports 
+#day15 {
+  @include hexgrid-placement( 2, 6 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 4 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 6, 2 );
+  }
+}
+
+#day16 {
+  @include hexgrid-placement( 2, 7 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 5 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 7, 1 );
+  }
+}
+
+#day17 {
+  @include hexgrid-placement( 2, 8 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 3, 6 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 7, 2 );
+  }
+}
+
+// third col on small viewports
+// forth col on medium viewports
+#day18 {
+  @include hexgrid-placement( 3, 1 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 4, 1 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 7, 3 );
+  }
+}
+
+// sixth col on large viewports 
+#day19 {
+  @include hexgrid-placement( 3, 2 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 4, 2 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 8, 1 );
+  }
+}
+
+#day20 {
+  @include hexgrid-placement( 3, 3 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 4, 3 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 8, 2 );
+  }
+}
+
+#day21 {
+  @include hexgrid-placement( 3, 4 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 4, 4 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 9, 1 );
+  }
+}
+
+// seventh col on large viewports 
+#day22 {
+  @include hexgrid-placement( 3, 5 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 4, 5 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 9, 2 );
+  }
+}
+
+// fifth col on medium viewports
+#day23 {
+  @include hexgrid-placement( 3, 6 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 1 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 9, 3 );
+  }
+}
+
+#day24 {
+  @include hexgrid-placement( 3, 7 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 2 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 10, 1 );
+  }
+}
+
+#day25 {
+  @include hexgrid-placement( 3, 8 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 3 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 10, 2 );
+  }
+}
+
+// eighth col on large viewports
+#day26 {
+  @include hexgrid-placement( 3, 9 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 4 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 11, 1 );
+  }
+}
+
+// 4th col on small viewports
+#day27 {
+  @include hexgrid-placement( 4, 1 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 5 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 11, 2 );
+  }
+}
+
+#day28 {
+  @include hexgrid-placement( 4, 2 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 5, 6 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 11, 3 );
+  }
+}
+
+// sixth col on medium viewports
+// ninth col on large viewports
+#day29 {
+  @include hexgrid-placement( 4, 3 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 6, 1 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 12, 1 );
+  }
+}
+
+#day30 {
+  @include hexgrid-placement( 4, 4 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 6, 2 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 12, 2 );
+  }
+}
+
+#day31 {
+  @include hexgrid-placement( 4, 5 );
+  @media screen and (min-width: 768px) {
+    @include hexgrid-placement( 6, 3 );
+  }
+  @media screen and (min-width: 1024px) {
+    @include hexgrid-placement( 13, 1 );
+  }
+}

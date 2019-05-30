@@ -1,0 +1,220 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600" rel="stylesheet"> 
+  <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+  <link href="css/tom.css" rel="stylesheet" />
+  <title>Tidies of March</title>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="logo-container">
+      <div class="prompt-container">
+        <span class="logo-prompt">&gt;</span>
+      </div>
+      <div class="animation-container animate">
+        Tidies_of_March()
+      </div>
+    </div>
+    <div class="spacer">&nbsp;</div>
+  </div>
+  <div class="side-bar">
+    <nav class="nav-container">
+      <div class="login-container">
+        <button class="login-button" alt="login with github"><i class="fab fa-github"></i> Login</button>
+        <button class="login-button" alt="login with google"><i class="fab fa-google"></i> Login</button>
+      </div>
+      <a href="#puzzles" class="side-bar-link active"><i class="fas fa-puzzle-piece"></i> Puzzles</a>
+      <a href="#stats" class="side-bar-link"><i class="fas fa-chart-bar"></i> Stats</a>
+      <a href="#coc" class="side-bar-link"><i class="far fa-handshake"></i> Code of Conduct</a>
+      <a href="#about" class="side-bar-link"><i class="far fa-user-circle"></i> About</a>
+    </nav>
+    <div class="help-container">
+      <p class="help-title">Feeling stuck?</p>
+      <p class="help-content">
+        We've got a whole <a href="#help" class="external-link">Community</a> of people who are 
+        happy to help.
+      </p>
+    </div>
+  </div>
+  <section class="main-section">
+    <div class="content-container no-pad" id="tdy-puzzle-01">
+      <div class="back-control">
+        <a href="#" id="back-to-grid"><i class="fas fa-arrow-left"></i> Back</a>
+      </div>
+      <div class="puzzle">
+        <header class="puzzle-header">
+          <h1>Tidies2019::Day( 01, 'Shakes' )</h1>
+          <p> Solved? False</p>
+        </header>
+        <main>
+          <p>
+            You meet your friend for coffee one day and she tells you about her brilliant new business idea: Shakespeare Shakes.  She's convinced it will be the hit of the summer.
+          </p>
+          <p>
+            She knows that you're pretty swell with numbers, so she asks for your help: she's found a company to print Shakespeare phrases on the cups, but the problem is, they charge <em>by the word</em>.  Luckily, they have a list of common English words (stopwords) that they'll print for free.  
+          </p>
+          <p>
+            To stay within budget, your friend would like to only use phrases that will cost her one word. She's given you an Excel file to work with. It contains the phrases on the first sheet, and the company's list of stopwords on the second sheet. <em>How many of the phrases she's given you fit her criteria?</em> 
+          </p>
+          <div class="hint">
+            <button class="rterm-button hint-header">Need a hint?</button>
+            <div class="hint-content">
+              <p>Check out:</p>
+              <ul>
+                <li><a href="#">dplyr::anti_join()</a></li>
+                <li><a href="#">dplyr::count()</a></li>
+                <li><a href="#">dplyr::mutate()</a></li>
+                <li><a href="#">dplyr::top_n()</a></li>
+                <li><a href="#">stringr::boundary()</a></li>
+                <li><a href="#">stringr::str_split()</a></li>
+                <li><a href="#">tidyr::unnest()</a></li>
+              </ul>
+            </div>
+          </div>
+        </main>
+        <nav class="interactive-block">
+          <div class="logged-in">
+            <button class="rterm-button download-btn">Download Your Dataset</button>
+            <div class="solution-block">
+              <label for="solution-input">Your solution:</label>
+              <div class="solution-prompt">
+                <span class="prompt">&gt;</span>
+                <input type="text" id="solution-input" class="solution-input" />
+              </div>
+              <button class="rterm-button submit-btn">Submit</button>
+            </div>
+          </div>
+          <div class="logged-out">
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="content-container show" id="tdy-select-grid">
+      <header class="main-section-intro">
+        Welcome to <em>Tidies of March</em>, let's do some puzzles with R and Maths and stuff! YAY!
+      </header>
+      <nav class="puzzle-selector">
+        <a id="day01" class="puzzle-selector-link" href="#">
+          <img src="img/shakes.png" />
+          <!-- <img src="img/fpoHex.svg" /> -->
+        </a>
+        <a id="day02" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day03" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day04" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day05" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day06" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day07" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day08" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day09" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day10" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day11" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day12" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day13" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day14" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day15" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day16" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day17" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day18" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day19" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day20" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day21" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day22" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day23" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day24" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day25" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day26" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day27" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day28" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day29" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day30" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+        <a id="day31" class="puzzle-selector-link" href="#">
+          <img src="img/fpoHex.svg" />
+        </a>
+      </nav>
+    </div>
+  </section>
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous">
+  </script>
+  <script>
+    let toggleViews = () => {
+      $('#tdy-select-grid').toggleClass('show');
+      $('#tdy-puzzle-01').toggleClass('show');
+      $('.help-container').toggleClass('show');
+      $('.animation-container').toggleClass('animate');
+      if(!$('#tdy-select-grid').hasClass('show'))
+        $('#solution-input').focus();
+    };
+
+    $('#day01').click( toggleViews );
+
+    $('#back-to-grid').click( toggleViews );
+    $('.hint-header').click( () => {
+      $('.hint-content').toggleClass('show');
+    });
+  </script>
+</body>
+</html>
