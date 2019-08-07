@@ -72,30 +72,33 @@ $r-blue: hsl(240, 100%, 58%);
 
 body {
   font-family: 'Source Code Pro', monospace;
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  grid-template-rows: 75px 1fr;
   width: 100vw;
   height: 100vh;
   max-width: 100vw;
   max-height: 100vh;
   font-size: 16px;
   background-color: $rs-background;
+  display: flex;
+  flex-flow: column nowrap;
+  @media screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: 75px 1fr;
+  }
 }
 
 em {
   font-style: normal;
+  // color: $brightblue;
   color: $brightblue;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 a {
-  color: $brightblue;
+  color: $r-green;
 }
 
 .top-bar {
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -103,6 +106,11 @@ a {
   background-color: hsl(0, 0%, 100%);
   color: $darkblue;
   border-bottom: 1px solid $rs-border;
+  flex: 0 0 55px;
+  @media screen and (min-width: 1024px) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
 
   .logo-container {
     flex: 0 0 auto;
@@ -130,64 +138,93 @@ a {
     }
   } 
   .spacer {
+    display: none;
+    @media screen and (min-width: 1024px) {
+      display: block;
       flex: 1;
     }
+  }
   .logins-container {
     flex: 0 0 250px;
   }
 }
 
 .side-bar {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  padding: 1rem 2rem 1rem 0.5rem;
   
+  flex: 0 0 65px;
+  @media screen and (min-width: 1024px) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding: 1rem 2rem 1rem 0.5rem;
+  }
+
 
   .nav-container {
     font-family: 'Helvetica', 'Arial', sans-serif;
-    display: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background-color: $rs-menu;
     @media screen and (min-width: 1024px) {
-      display: flex;
       flex-flow: column nowrap;
-      padding-bottom: 5rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding:0 0 5rem;
       margin-bottom: 1rem;
+      background: transparent;
+    }
 
-      .login-container {
+    .login-container {
+      display: flex; // doing this to get around spacing added to buttons when they're inline-block
+      background-color: $rs-menu; 
+      
+      @media screen and (min-width: 1024px) {
         flex: 1 0 100%;
-        display: flex; // doing this to get around spacing added to buttons when they're inline-block
-        background-color: $rs-menu; 
         margin-bottom: 1rem;
         padding: 0.5rem;
-
-        .login-button {
-          flex: 0 0 auto;
-          font-family: 'Helvetica', 'Arial', sans-serif;
-          background: transparent;
-          border: none;
-          font-size: 0.9rem;
-          cursor: pointer;
-          
-          .fa-github path,
-          .fa-google path {
-            fill: $rs-blue;
-          }
-          &:first-of-type {
-            border-right: 1px solid $rs-border;
-          }
-        }
+        flex: 0 0 auto;
       }
-      .side-bar-link {
-        padding: 0 1rem;
-        margin-bottom: 0.5rem;
-        text-decoration: none;
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-        &.active {
-         color: $r-green;
+      
+    
+      .login-button {
+        flex: 0 0 auto;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+        background: transparent;
+        border: none;
+        font-size: 0.9rem;
+        cursor: pointer;
+        
+        .fa-github path,
+        .fa-google path {
+          fill: $rs-blue;
+        }
+        &:first-of-type {
+          border-right: 1px solid $rs-border;
         }
       }
     }
-    
+    .side-bar-link {
+      flex: 0 0 auto;
+      padding: 0.25rem;
+      @media screen and (min-width: 1024px) {
+        padding: 0 1rem;
+        text-decoration: none;
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+      }
+      &.active {
+        color: $brightblue;
+      }
+
+      svg {
+        display: none;
+        @media screen and (min-width: 1024px) {
+          display: inline-block;
+        }
+      }
+    }
   }
 
   .help-container {
@@ -212,8 +249,9 @@ a {
 }
 
 .main-section {
-  grid-row: 2 / 3;
-  grid-column: 1 / 4;
+  // grid-row: 2 / 3;
+  // grid-column: 1 / 4;
+  flex: 1;
   @media screen and (min-width: 1024px) {
     grid-column: 1 / 2;
     padding: 1rem 0.5rem 1rem 2rem;
@@ -299,13 +337,20 @@ a {
 .puzzle {
   padding: 2rem 2rem;
   line-height: 2.5ch;
+  overflow-x: auto;
+  
   .puzzle-header {
     
     h1 {
-      font-size: 2.5rem;
-      // line-height: 4ch;
+      font-size: 2.05rem;
+      line-height: 2.5rem;
       margin-top: 0;
-
+      @media screen and (min-width: 1024px) {
+        font-size: 2.5rem;
+        line-height: auto;
+        // margin-top: 0;
+      }
+      
     }
   }
   main > p {
@@ -313,6 +358,62 @@ a {
     max-width: 84ch;
     &:last-of-type {
       margin-bottom: 3ch;
+    }
+  }
+  blockquote {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin: 0;
+    margin-bottom: 2ch;
+    padding: 1ch 4ch;
+
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 1ch;
+    max-width: 84ch;
+    margin-bottom: 2ch;
+    $table-side-border: 1px solid;
+    $table-end-border: 1.5px dashed;
+    
+    th {
+      font-weight: 800;
+      color: $brightblue;
+      border-width: 1.5px 0;
+      border-style: dashed solid;
+      border-color: $brightblue;
+      padding: 1ch;
+
+      &:first-child,
+      &:last-child {
+        
+        border-color: $brightblue;
+      }
+    }
+
+    td {
+      border-top: $table-end-border;
+      border-color: $darkblue;
+      padding: 1ch;
+    }
+    
+    tr td:first-child,
+    tr th:first-child {
+      border-left: $table-side-border;
+      padding-left: 2ch;
+    }
+    tr td:last-child,
+    tr th:last-child {
+      border-right: $table-side-border;
+      padding-right: 2ch;
+    }
+    
+    tbody tr:first-child td {
+      border-top: none;
+    }
+    tbody tr:last-child td {
+      border-bottom: $table-end-border;
     }
   }
   .hint {
