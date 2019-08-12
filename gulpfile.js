@@ -4,6 +4,8 @@ const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const bs = require('browser-sync').create();
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 
 
 
@@ -22,6 +24,7 @@ function buildSass() {
   return src(settings.styles.glob)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([autoprefixer()]))
     .pipe(sourcemaps.write('./maps'))
     .pipe(dest(settings.styles.dist));
 }
